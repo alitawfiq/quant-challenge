@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface TemplateService {
 
-	Mono<TemplateResponse> postStuff(TemplateRequest templateRequest) ;
-    Mono<TemplateDocument> getStuff(String templatePathVariable) ;
+	Mono<TemplateResponse> postStuff(TemplateRequest templateRequest);
+	Mono<TemplateDocument> getStuff(String templatePathVariable);
 
 }
