@@ -20,9 +20,11 @@ services:
   backend:
     image: alitawfiq/quant-task
     container_name: backend
-    build:
-      context: ./
-      dockerfile: Dockerfile
+### Remove the comments below if you want to test the build(You can pull the image diectly from docker hub without building) ###
+#    build: 
+#      context: ./
+#      dockerfile: Dockerfile
+
     environment:
       - SPRING_DATA_MONGODB_HOST=mongodb
       - SPRING_RABBITMQ_HOST=rabbitmq
