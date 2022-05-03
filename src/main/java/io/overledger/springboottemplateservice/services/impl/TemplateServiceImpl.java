@@ -1,4 +1,4 @@
-package io.overledger.springboottemplateservice.services;
+package io.overledger.springboottemplateservice.services.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +16,7 @@ import io.overledger.springboottemplateservice.exceptions.TemplateNotFoundExcept
 import io.overledger.springboottemplateservice.mongodb.TemplateDocument;
 import io.overledger.springboottemplateservice.mongodb.TemplateRepository;
 import io.overledger.springboottemplateservice.rabbitmq.TemplatePublishGateway;
+import io.overledger.springboottemplateservice.services.TemplateService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -23,7 +24,7 @@ import reactor.core.publisher.Mono;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class TemplateService {
+public class TemplateServiceImpl implements TemplateService {
 
     TemplateRepository templateRepository;
     TemplatePublishGateway templatePublishGateway;
