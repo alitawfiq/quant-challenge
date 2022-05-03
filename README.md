@@ -58,9 +58,10 @@ C.  Dockerized the application
 
 viii. Build and run using docker-compose up -d command ![](.//media/image9.PNG)
 
-ix.  Check that images are running ![](.//media/image10.PNG)
+ix.  Check that images are installed ![](.//media/image10.PNG)
 
-x.  Check that containers are running ![](.//media/image11.PNG)
+x.  Check that containers are running 
+![](.//media/image11.PNG)
     
     
 
