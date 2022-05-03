@@ -1,4 +1,4 @@
-# Quant Software Engineer Task
+# Quant Software Engineering Task
 
 I did not completely understand the task, so I broke down the
 requirements and did what was obvious.
