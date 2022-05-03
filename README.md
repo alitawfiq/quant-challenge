@@ -1,16 +1,16 @@
-**Quant Software Engineer Task**
+# Quant Software Engineer Task
 
 I did not completely understand the task, so I broke down the
 requirements and did what was obvious.
 
-**Program requirements:**
+## Program requirements:
 
 -   Java 11
 -   MongoDB
 -   RabbitMQ
 -   Maven
 
-**First:** Make the program run
+## First: Make the program run
 
     Imported the project and solved some bugs resulting from compilation
     errors and version incompatibility.
@@ -23,9 +23,9 @@ requirements and did what was obvious.
     To test the app, Just run docker-compose up --d. (Docker must be
     installed on your machine)
 
-**Second:** Functionality test
+## Second: Functionality test
 
-A.  There were two APIs;
+### A.  Test the APIs;
 
 <!-- -->
 
@@ -50,11 +50,13 @@ A.  There were two APIs;
 
 <!-- -->
 
-B.  Since the service wasn't tested, I did some unit tests on it. ![](.//media/image8.PNG)
+### B.  Apply Unit tests.
+
+![](.//media/image8.PNG)
 
 <!-- -->
 
-C.  Dockerized the application
+### C.  Dockerize the application
 
 viii. Build and run using docker-compose up -d command ![](.//media/image9.PNG)
 
@@ -65,13 +67,13 @@ x.  Check that containers are running
     
     
 
-**Third:** What the program actually does
+## Third: What the program actually does
 
     It wasn't very clear what the purpose of the app was.
 
     But from my understanding, it's a **chat-bot**.
 
-**Fourth:** What I did
+## Fourth: What I did
 
     A.  Handled exceptions in Second.A.2.iii by disallowing duplicate
         templateField values
