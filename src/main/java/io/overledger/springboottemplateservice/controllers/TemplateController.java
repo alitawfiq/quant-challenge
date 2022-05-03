@@ -1,5 +1,15 @@
 package io.overledger.springboottemplateservice.controllers;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import io.overledger.springboottemplateservice.dto.TemplateRequest;
 import io.overledger.springboottemplateservice.dto.TemplateResponse;
 import io.overledger.springboottemplateservice.mongodb.TemplateDocument;
@@ -7,11 +17,7 @@ import io.overledger.springboottemplateservice.services.TemplateService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
-
-import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping(TemplateController.RESOURCE_NAME)

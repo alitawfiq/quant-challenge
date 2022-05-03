@@ -1,17 +1,24 @@
 package io.overledger.springboottemplateservice.services;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
 import io.overledger.springboottemplateservice.dto.TemplateRequest;
 import io.overledger.springboottemplateservice.dto.TemplateResponse;
+import io.overledger.springboottemplateservice.exceptions.TemplateAlreadyExistExeption;
 import io.overledger.springboottemplateservice.exceptions.TemplateException;
+import io.overledger.springboottemplateservice.exceptions.TemplateNotFoundException;
 import io.overledger.springboottemplateservice.mongodb.TemplateDocument;
 import io.overledger.springboottemplateservice.mongodb.TemplateRepository;
 import io.overledger.springboottemplateservice.rabbitmq.TemplatePublishGateway;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +27,8 @@ public class TemplateService {
 
     TemplateRepository templateRepository;
     TemplatePublishGateway templatePublishGateway;
+    
+    Map<Integer,String> cache=new HashMap<>();
 
     public Mono<TemplateResponse> postStuff(TemplateRequest templateRequest) {
         log.info(String.format("Validating request: %s.", templateRequest.toString()));
@@ -45,24 +54,27 @@ public class TemplateService {
         if (templateMessages.size() == 5)
             return Mono.just(new TemplateResponse("42"));
 
-        TemplateResponse templateResponse = new TemplateResponse();
-        templateResponse.setTemplateField(templateRequest.getTemplateField());
-
-        return Mono.just(templateResponse);
+        return Mono.just(new TemplateResponse(templateRequest.getTemplateField()));
     }
 
     public Mono<TemplateDocument> getStuff(String templatePathVariable) {
         return this.templateRepository
                 .findByTemplateField(templatePathVariable)
-                .switchIfEmpty(Mono.error(new TemplateException("The document was not found.")));
+                .switchIfEmpty(Mono.error(new TemplateNotFoundException("The document was not found.")));
     }
 
     private void publishToQueue(TemplateRequest templateRequest) {
         log.info("Publishing the request to the queue.");
+        
+        String templateField = templateRequest.getTemplateField();
+
+        if (cache.containsValue(templateField))
+        	throw new TemplateAlreadyExistExeption("Template Already Exists, please try with another template name");
+        
         this.templatePublishGateway
                 .templatePublishRequest(
                         templateRequest,
-                        templateRequest.getTemplateField(),
+                        templateField,
                         System.currentTimeMillis(),
                         templateRequest.getClass().getName()
                 );
@@ -70,8 +82,20 @@ public class TemplateService {
 
     public void saveToDatabase(TemplateRequest templateRequest) {
         log.info("Saving the message to the database.");
+
+        String templateField = templateRequest.getTemplateField();
+        
+        if (cache.containsValue(templateField))
+        	throw new TemplateAlreadyExistExeption("Template Already Exists, please try with another template name");
+        
         this.templateRepository
-                .save(new TemplateDocument(UUID.randomUUID(), templateRequest.getTemplateField()))
+                .save(new TemplateDocument(UUID.randomUUID(), templateField))
                 .subscribe(result -> log.info(String.valueOf(result)));
+        
+        Random rnd = new Random();
+        
+        if(!cache.containsKey(rnd.nextInt()))
+        	cache.put(rnd.nextInt(), templateField);
+
     }
 }
