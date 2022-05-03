@@ -50,7 +50,19 @@ A.  There were two APIs;
 
 <!-- -->
 
-B.  Since the service wasn't tested, I did some unit tests on it.
+B.  Since the service wasn't tested, I did some unit tests on it. ![](.//media/image8.PNG)
+
+<!-- -->
+
+C.  Dockerized the application
+
+viii. Build and run using docker-compose up -d command ![](.//media/image9.PNG)
+
+ix.  Check that images are running ![](.//media/image10.PNG)
+
+x.  Check that containers are running ![](.//media/image11.PNG)
+    
+    
 
 **Third:** What the program actually does
 
