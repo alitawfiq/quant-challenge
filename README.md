@@ -71,7 +71,7 @@ x.  Check that containers are running
 
     It wasn't very clear what the purpose of the app was.
 
-    But from my understanding, it's a **chat-bot**.
+    But from my understanding, Chat-bot was the obvious answer to me.
 
 ## Fourth: What I did
 
